@@ -75,7 +75,7 @@ try{
                         <td>첨부파일 없음</td>
                         <% 
 						} else { %>
-                        <td><a href="../upload/<%=FILENAME%>" download=""><%=ORIGINAL%></a></td>
+                        <td><a href="../back/board_filedown.jsp?num=<%=NUM%>" ><%=ORIGINAL%></a></td>
                         <% }%>
                     </tr>
 
@@ -85,7 +85,7 @@ try{
                 </tbody>
             </table>
             <div class="button-group">
-                <button class="button is-primary" value="목록" onclick="window.location='../front/board_list2.jsp'" />목록</button>
+                <button class="button is-primary" value="목록" onclick="window.location='../xss_stored/board_list2.jsp'" />목록</button>
                 <%if(session.getAttribute("user_id") != null && session.getAttribute("user_id").equals(WRITER)) {%>
                     <button class="button is-primary" onclick="window.location='../front/board_modify.jsp?num=<%=NUM %>'">수정</button>
                 <%}

@@ -21,19 +21,38 @@
  
  Class.forName(jdbc_driver);
  
- 
  String SUBJECT  = multi.getParameter("SUBJECT");
  String CONTENTS   = multi.getParameter("CONTENTS");
  String PASSWORD   = multi.getParameter("PASSWORD");
  String FILENAME = multi.getFilesystemName("file");
  String ORIGINAL = multi.getOriginalFileName("file");
+
  
- 
+CONTENTS = CONTENTS
+ .replaceAll("<", "&lt;")
+ .replaceAll(">", "&gt;")
+ .replaceAll("\\(", "&#40;")
+ .replaceAll("\\)", "&#41;")
+ .replaceAll("'", "&#39;")
+ .replaceAll("\"", "&#34;");
+ .replaceAll("\\r?\\n", "<br>");
+
+SUBJECT = SUBJECT
+ .replaceAll("<", "&lt;")
+ .replaceAll(">", "&gt;")
+ .replaceAll("\\(", "&#40;")
+ .replaceAll("\\)", "&#41;")
+ .replaceAll("'", "&#39;")
+ .replaceAll("\"", "&#34;");
+ .replaceAll("\\r?\\n", "<br>");
+
+
  if (FILENAME == null)
  {
 	 FILENAME="";
 	 ORIGINAL="";
  }
+ 
  
  try{
   Connection conn = DriverManager.getConnection(jdbc_url,"JSP","JSP");
@@ -57,7 +76,7 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 	alert("게시물이 작성되었습니다.");
-	location.href="../front/board_list2.jsp";
+	location.href="../xss_stored/board_list2.jsp";
 </script>
 </head>
 </html>

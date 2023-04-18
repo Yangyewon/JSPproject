@@ -134,7 +134,7 @@
 
 			  <div class="to-login-block">
 			  <%if(session.getAttribute("user_id") != null) {%>
-			  <button class="button is-primary" onclick="gourl('../front/board_write.jsp');">글쓰기</button>
+			  <button class="button is-primary" onclick="gourl('../xss_stored/board_write.jsp');">글쓰기</button>
 			  <%}
 			  else { %>
 				

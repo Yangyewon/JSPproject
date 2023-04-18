@@ -75,7 +75,7 @@ try{
                         <td>첨부파일 없음</td>
                         <% 
 						} else { %>
-                        <td><a href="../upload/<%=FILENAME%>" download=""><%=ORIGINAL%></a></td>
+                        <td><a href="../back/board_filedown.jsp?num=<%=NUM%>" ><%=ORIGINAL%></a></td>
                         <% }%>
                     </tr>
 

@@ -8,6 +8,36 @@
 	request.setCharacterEncoding("euc-kr");  
 	String searchtype = request.getParameter("searchtype");
 	String searchtext = request.getParameter("searchtext");
+  
+  String searchtext_low="";
+
+  if(searchtext != null){
+    searchtext = searchtext.replaceAll("&", "&amp;");
+    searchtext = searchtext.replaceAll("<", "&lt;");
+    searchtext = searchtext.replaceAll(">", "&gt;");
+    searchtext = searchtext.replaceAll("\"", "&quot;");
+    searchtext = searchtext.replaceAll("\'", "&#39;");
+    searchtext = searchtext.replaceAll("\\(", "&#40;");
+    searchtext = searchtext.replaceAll("\\)", "&#41;");
+
+    searchtext = searchtext.replaceAll("&lt;p&gt;", "<p>");
+    searchtext = searchtext.replaceAll("&lt;P&gt;", "<P>");
+    searchtext = searchtext.replaceAll("&lt;br&gt;", "<br>");
+    searchtext = searchtext.replaceAll("&lt;br&gt;", "<BR>");
+
+    //out.println("<script>alert('특수문자는 불가합니다');history.back();</script>");
+
+    searchtext_low = searchtext.toLowerCase();
+    
+    if(searchtext.contains("javascript") || searchtext.contains("script")){
+      searchtext=searchtext_low;
+      searchtext=searchtext.replaceAll("javascript","x-javascript");
+      searchtext=searchtext.replaceAll("script", "x-script");
+      //out.println("<script>alert('script포함 단어는 불가합니다');history.back();</script>");
+    }
+	}else{
+    searchtext="";
+  }
 	
 	// 초기화
 	Connection conn = null;
@@ -59,7 +89,7 @@
 </div>
 <div class="search-caption">검색 조회 결과</div>
 <div class="search-result-form">
-		<form  name="searchForm" method="get" action="../back/board_search.jsp">
+		<form  name="searchForm" method="get" action="../xss_reflected/board_search.jsp">
 			
 			<div class="select">
 			  <select name="searchtype">
@@ -143,7 +173,7 @@
   else { %>
 	<a href="../front/login.jsp">로그인 후 글 작성이 가능합니다</a>
 	<%}%>
-  <input type="button" class="button is-primary" value="목록" onclick="gourl('../front/board_list2.jsp');"/>
+  <input type="button" class="button is-primary" value="목록" onclick="gourl('../xss_reflected/board_list2.jsp');"/>
   </div>
   </div>
   </div>

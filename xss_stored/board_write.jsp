@@ -83,8 +83,8 @@
  </tbody>
 </table>
   <div class="write-button-group">
-	  <input class="button is-primary" type="button" value="목록" onclick="gourl('../front/board_list2.jsp');"/>
-	  <input class="button is-primary"  type="submit" value="등록" onclick="gourl('../back/boardwrite_ok.jsp');"/>
+	  <input class="button is-primary" type="button" value="목록" onclick="gourl('../xss_stored/board_list2.jsp');"/>
+	  <input class="button is-primary"  type="submit" value="등록" onclick="gourl('../xss_stored/boardwrite_ok.jsp');"/>
 	  <input class="button is-primary" type="reset" value="취소" onclick="javascript:history.back(-1);"/>
  </div>
 
