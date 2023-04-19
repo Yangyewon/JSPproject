@@ -30,6 +30,9 @@ try{
   //조회수 적용
   sql = "UPDATE board2 SET hit= "+ HIT +"WHERE num= "+ NUM;
   stmt.executeUpdate(sql);
+
+  CONTENTS = CONTENTS.replaceAll("\\r?\\n", "<br>");
+  SUBJECT = SUBJECT.replaceAll("\\r?\\n", "<br>");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

@@ -28,23 +28,11 @@
  String ORIGINAL = multi.getOriginalFileName("file");
 
  
-CONTENTS = CONTENTS
- .replaceAll("<", "&lt;")
- .replaceAll(">", "&gt;")
- .replaceAll("\\(", "&#40;")
- .replaceAll("\\)", "&#41;")
- .replaceAll("'", "&#39;")
- .replaceAll("\"", "&#34;");
- .replaceAll("\\r?\\n", "<br>");
+CONTENTS = CONTENTS.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\\(", "&#40;")
+.replaceAll("\\)", "&#41;").replaceAll("'", "&#39;").replaceAll("\"", "&#34;");
 
-SUBJECT = SUBJECT
- .replaceAll("<", "&lt;")
- .replaceAll(">", "&gt;")
- .replaceAll("\\(", "&#40;")
- .replaceAll("\\)", "&#41;")
- .replaceAll("'", "&#39;")
- .replaceAll("\"", "&#34;");
- .replaceAll("\\r?\\n", "<br>");
+SUBJECT = SUBJECT.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\\(", "&#40;")
+.replaceAll("\\)", "&#41;").replaceAll("'", "&#39;").replaceAll("\"", "&#34;");
 
 
  if (FILENAME == null)
@@ -75,7 +63,7 @@ SUBJECT = SUBJECT
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
-	alert("게시물이 작성되었습니다.");
+	alert("게시물이 등록되었습니다.");
 	location.href="../xss_stored/board_list2.jsp";
 </script>
 </head>

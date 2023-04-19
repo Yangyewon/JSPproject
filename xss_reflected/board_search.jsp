@@ -3,6 +3,7 @@
 <%@ include file="../WEB-INF/include/header.jsp" %>
 <%@ include file="../WEB-INF/include/DB.jsp" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	request.setCharacterEncoding("euc-kr");  
@@ -12,6 +13,8 @@
   String searchtext_low="";
 
   if(searchtext != null){
+
+    //whitelist 
     searchtext = searchtext.replaceAll("&", "&amp;");
     searchtext = searchtext.replaceAll("<", "&lt;");
     searchtext = searchtext.replaceAll(">", "&gt;");
@@ -20,6 +23,7 @@
     searchtext = searchtext.replaceAll("\\(", "&#40;");
     searchtext = searchtext.replaceAll("\\)", "&#41;");
 
+    // 몇몇 태그 허용
     searchtext = searchtext.replaceAll("&lt;p&gt;", "<p>");
     searchtext = searchtext.replaceAll("&lt;P&gt;", "<P>");
     searchtext = searchtext.replaceAll("&lt;br&gt;", "<br>");
@@ -29,6 +33,7 @@
 
     searchtext_low = searchtext.toLowerCase();
     
+    //블랙리스트 필터링
     if(searchtext.contains("javascript") || searchtext.contains("script")){
       searchtext=searchtext_low;
       searchtext=searchtext.replaceAll("javascript","x-javascript");
