@@ -5,7 +5,8 @@
     String FILENAME = "";
     String ORIGINAL = "";
     String num = request.getParameter("num");
-
+    String FILEPATH = request.getParameter("file");
+    
     Connection conn = null;
     Statement stmt = null;
     ResultSet rs = null;
@@ -23,28 +24,23 @@
 
         String sql = "SELECT FILENAME, ORIGINAL FROM board2 WHERE num=" + num;
         rs = stmt.executeQuery(sql);
+        String savePath = URLDecoder.decode(FILEPATH,"UTF-8");
 
         if (rs.next()) {
             FILENAME = rs.getString(1);
             ORIGINAL = rs.getString(2);
 
-            // ÆÄÀÏ ¾÷·ÎµåµÈ °æ·Î
-            String root = request.getSession().getServletContext().getRealPath("/");
-            String savePath = root + "upload";
-            // ¼­¹ö¿¡ ½ÇÁ¦ ÀúÀåµÈ ÆÄÀÏ¸í
             String filename = FILENAME;
-            // ½ÇÁ¦ ³»º¸³¾ ÆÄÀÏ¸í
+            // ì‹¤ì œ ë‚´ë³´ë‚¼ íŒŒì¼ëª…
             String orgfilename = ORIGINAL;
 
-            try {
-                file = new File(savePath, filename);
-                in = new FileInputStream(file);
-            } catch (FileNotFoundException fe) {
-                skip = true;
-            }
+            
+
+            file = new File(savePath);
+            in = new FileInputStream(savePath);
 
             client = request.getHeader("User-Agent");
-            // ÆÄÀÏ ´Ù¿î·Îµå Çì´õ ÁöÁ¤
+            // íŒŒì¼ ë‹¤ìš´ë¡œë“œ í—¤ë” ì§€ì •
             response.reset();
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Description", "JSP Generated Data");
@@ -54,7 +50,7 @@
                     response.setHeader("Content-Disposition",
                             "attachment; filename=" + new String(orgfilename.getBytes("KSC5601"), "ISO8859_1"));
                 } else {
-                    // ÇÑ±Û ÆÄÀÏ¸í Ã³¸®
+                    // í•œê¸€ íŒŒì¼ëª… ì²˜ë¦¬
                     orgfilename = new String(orgfilename.getBytes("utf-8"), "iso-8859-1");
 
                     response.setHeader("Content-Disposition", "attachment; filename=\"" + orgfilename + "\"");
@@ -73,7 +69,7 @@
 
             } else {
                 response.setContentType("text/html;charset=UTF-8");
-                out.println("<script language='javascript'>alert('ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù');history.back();</script>");
+                out.println("<script language='javascript'>alert('íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤');history.back();</script>");
             }
 
             in.close();

@@ -1,8 +1,8 @@
 <%@ page language="java" import="java.sql.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.oreilly.servlet.MultipartRequest" %>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
-<%@page import="java.util.*,java.io.*"%>
-<%@page import = "java.sql.*"%>
+<%@page import="java.util.*,java.io.*,java.sql.*"%>
+
 <%@ include file="../WEB-INF/include/DB.jsp" %>
 
 <%
@@ -11,7 +11,9 @@
 
 <%
  //for upload
- String saveFolder = application.getRealPath("/upload") ;
+ String saveFolder = application.getRealPath("/upload")  ;
+ //String root = request.getSession().getServletContext().getRealPath("/");
+ //String saveFolder = root + "upload";
  String encType = "euc-kr";
  int maxSize = 5 * 1024 * 1024;
   
@@ -27,6 +29,9 @@
  String PASSWORD   = multi.getParameter("PASSWORD");
  String FILENAME = multi.getFilesystemName("file");
  String ORIGINAL = multi.getOriginalFileName("file");
+
+ 
+ saveFolder += "\\" + FILENAME;
  
  
  if (FILENAME == null)
@@ -39,8 +44,8 @@
   Connection conn = DriverManager.getConnection(jdbc_url,"JSP","JSP");
   Statement stmt = conn.createStatement();
 
-  String sql  = "INSERT INTO board2(NUM, SUBJECT, WRITER, CONTENTS, REG_DATE, PASSWORD, FILENAME, ORIGINAL)";
-  sql += "VALUES(board2_seq.NEXTVAL,'" + SUBJECT + "', '"+ user_id +"','"+CONTENTS+"', sysdate,'"+PASSWORD+"','"+FILENAME+"','"+ORIGINAL+"')";
+  String sql  = "INSERT INTO board2(NUM, SUBJECT, WRITER, CONTENTS, REG_DATE, PASSWORD, FILENAME, ORIGINAL, FILEPATH)";
+  sql += "VALUES(board2_seq.NEXTVAL,'" + SUBJECT + "', '"+ user_id +"','"+CONTENTS+"', sysdate,'"+PASSWORD+"','"+FILENAME+"','"+ORIGINAL+"','"+saveFolder+"')";
   stmt.executeUpdate(sql);
   
   stmt.close();

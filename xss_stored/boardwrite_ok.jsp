@@ -22,8 +22,8 @@
  Class.forName(jdbc_driver);
  
  String SUBJECT  = multi.getParameter("SUBJECT");
- String CONTENTS   = multi.getParameter("CONTENTS");
- String PASSWORD   = multi.getParameter("PASSWORD");
+ String CONTENTS = multi.getParameter("CONTENTS");
+ String PASSWORD = multi.getParameter("PASSWORD");
  String FILENAME = multi.getFilesystemName("file");
  String ORIGINAL = multi.getOriginalFileName("file");
 
@@ -33,6 +33,9 @@ CONTENTS = CONTENTS.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("
 
 SUBJECT = SUBJECT.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\\(", "&#40;")
 .replaceAll("\\)", "&#41;").replaceAll("'", "&#39;").replaceAll("\"", "&#34;");
+
+//CONTENTS = CONTENTS.replaceAll("&lt;p&gt;","<p>");
+//CONTENTS = CONTENTS.replaceAll("&lt;br&gt;","<br>");
 
 
  if (FILENAME == null)

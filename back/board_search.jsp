@@ -70,9 +70,8 @@
 			</div>
 			  <input class="input" type="text" name="searchtext" value="<%=searchtext%>"/>
 			  <button class="button is-light">°Ë»ö</button>
-		
-			</form>		
-			</div>
+		</form>		
+</div>
 </div>
 
 

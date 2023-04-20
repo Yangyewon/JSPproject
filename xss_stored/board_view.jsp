@@ -6,6 +6,7 @@
 <%@ page import="java.io.PrintWriter"%>
 <%
 String NUM = request.getParameter("num");
+String CONTENTS_low="";
 
 Class.forName(jdbc_driver);
 
@@ -30,9 +31,24 @@ try{
   //조회수 적용
   sql = "UPDATE board2 SET hit= "+ HIT +"WHERE num= "+ NUM;
   stmt.executeUpdate(sql);
+ 
 
   CONTENTS = CONTENTS.replaceAll("\\r?\\n", "<br>");
   SUBJECT = SUBJECT.replaceAll("\\r?\\n", "<br>");
+  //CONTENTS = CONTENTS.replaceAll("&lt;p&gt;","<p>");
+  //CONTENTS = CONTENTS.replaceAll("&lt;br&gt;","<br>");
+
+  CONTENTS_low = CONTENTS.toLowerCase();
+
+  if(CONTENTS.contains("javascript") || CONTENTS.contains("script")){
+    CONTENTS=CONTENTS_low;
+    CONTENTS=CONTENTS.replaceAll("javascript","x-javascript");
+    CONTENTS=CONTENTS.replaceAll("script", "x-script");
+    //out.println("<script>alert('script포함 단어는 불가합니다');history.back();</script>");
+  }
+    else{
+        CONTENTS="";
+    }
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

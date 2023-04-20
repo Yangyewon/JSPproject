@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*,java.net.*" %>
 <%@ include file="../WEB-INF/include/header.jsp" %>
 <%@ include file="../WEB-INF/include/DB.jsp" %>
 <%@ page import="java.io.PrintWriter"%>
+
 <%
 String NUM = request.getParameter("num");
 
@@ -13,7 +14,7 @@ try{
  Connection conn = DriverManager.getConnection(jdbc_url,"JSP","JSP");
  Statement stmt = conn.createStatement();
 
- String sql = "SELECT subject, writer, contents, hit, reg_date, filename, original FROM board2 WHERE num="+NUM;
+ String sql = "SELECT subject, writer, contents, hit, reg_date, filename, original, FILEPATH FROM board2 WHERE num="+NUM;
  ResultSet rs = null;
  rs = stmt.executeQuery(sql);
    
@@ -25,6 +26,7 @@ try{
   String REG_DATE = rs.getString(5);
   String FILENAME = rs.getString(6);
   String ORIGINAL = rs.getString(7);
+  String FILEPATH = rs.getString(8);
   HIT++;
   
   //조회수 적용
@@ -74,8 +76,9 @@ try{
 						%>
                         <td>첨부파일 없음</td>
                         <% 
-						} else { %>
-                        <td><a href="../back/board_filedown.jsp?num=<%=NUM%>" ><%=ORIGINAL%></a></td>
+						} else {
+                            FILEPATH = URLEncoder.encode(FILEPATH,"UTF-8"); %>
+                        <td><a href="../back/board_filedown.jsp?num=<%=NUM%>&file=<%=FILEPATH%>"><%=ORIGINAL%></a></td>
                         <% }%>
                     </tr>
 
